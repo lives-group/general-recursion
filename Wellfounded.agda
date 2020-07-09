@@ -112,10 +112,15 @@ module Wellfounded where
       right : ∀ {x y₁ y₂}     (y₁<y₂ : RelB y₁ y₂) → (x  , y₁) < (x  , y₂)
 
     mutual
-      accessibleA : ∀ {x y} → Acc RelA x → WellFounded RelB → Acc _<_ (x , y)
+      accessibleA : ∀ {x y} → Acc RelA x →
+                              WellFounded RelB →
+                              Acc _<_ (x , y)
       accessibleA accA wfB = acc (accessibleB accA (wfB _) wfB)
 
-      accessibleB : ∀ {x y} → Acc RelA x → Acc RelB y → WellFounded RelB → WfRec _<_ (Acc _<_) (x , y)
+      accessibleB : ∀ {x y} → Acc RelA x →
+                              Acc RelB y →
+                              WellFounded RelB →
+                              WfRec _<_ (Acc _<_) (x , y)
       accessibleB (acc rsA) _    wfB ._ (left  x′<x) = accessibleA (rsA _ x′<x) wfB
       accessibleB accA (acc rsB) wfB ._ (right y′<y) = acc (accessibleB accA (rsB _ y′<y) wfB)
 
